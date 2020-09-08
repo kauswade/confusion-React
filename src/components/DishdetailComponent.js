@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "reactstrap";
+import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
 class DishDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderDish(dish) {
         if (dish != null) {
             return (
                 <Card>
-                    <CardImg width="100%" object src={dish.image} alt={dish.name} />
+                    <CardImg width="100%" object="true" src={dish.image} alt={dish.name} />
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -25,19 +21,20 @@ class DishDetail extends Component {
         }
     }
 
-    renderComments(comments) {
-        if (comments != null) {
+    renderComments(dish) {
+        if (dish != null) {
             return (
                 <div>
                     <h4>Comments</h4>
                     <ul className="list-unstyled">
                         <li>
-                            {comments.map((comment) => {
+                            {dish.comments.map((comment) => {
                                 return (
                                     <div>
-                                        {comment.comment}<br /><br />
-                                        -- {comment.author}, {comment.date}
-                                        <br /><br />
+                                        <p>{comment.comment}</p>
+                                        <p>
+                                            -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}
+                                        </p>
                                     </div>
                                 );
                             })}
@@ -55,9 +52,9 @@ class DishDetail extends Component {
 
     render() {
         return (
-            <div className="row">
+            <div className=" container">
                 <div className="col-12 col-md-5 m-1">{this.renderDish(this.props.dish)}</div>
-                <div className="col-12 col-md-5 m-1">{this.renderComments(this.props.dish.comments)}</div>
+                <div className="col-12 col-md-5 m-1">{this.renderComments(this.props.dish)}</div>
             </div>
         );
     }
