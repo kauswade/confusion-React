@@ -170,7 +170,7 @@ function RenderComments({ comments, postComment, dishId }) {
     }
     else {
         return (
-            <div>Other</div>
+            <div></div>
         );
     }
 }
